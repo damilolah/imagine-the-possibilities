@@ -1,8 +1,8 @@
 {
   "name": "vue-project",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Pinkie Aruwani <aruwanip@gmail.com>",
+  "description": "Pearl Hacks Demo Project",
+  "author": "Pinkie Aruwani <aruwanip@gmail.com> & Prithika Manivannan <prithikamanivannan@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -10,12 +10,18 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "buildAndDeploy": "npm run build && cordova run android"
   },
   "dependencies": {
     "cordova-android": "^7.1.4",
     "cordova-browser": "^5.0.4",
-    "cordova-plugin-camera": "^4.0.3",
+    "cordova-call": "^1.1.6",
+    "cordova-plugin-camera": "git+https://github.com/apache/cordova-plugin-camera.git",
+    "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-nativegeocoder": "^3.1.3",
+    "cordova-plugin-vibration": "^3.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
@@ -97,11 +103,16 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-camera": {}
+      "cordova-plugin-camera": {},
+      "cordova-call": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-nativegeocoder": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

@@ -1,18 +1,34 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    <feature name="CordovaCall">
+        <param name="android-package" value="com.dmarc.cordovacall.CordovaCall" />
+        <param name="onload" value="true" />
     </feature>
-    <name>HelloCordova</name>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="CallNumber">
+        <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+    <feature name="NativeGeocoder">
+        <param name="android-package" value="cordova.plugin.nativegeocoder.NativeGeocoder" />
+    </feature>
+    <name>Cordova Full App Demo</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author>
+        Prithika Manivannan and Piryanka "Pinkie Aruwani"
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -23,5 +39,6 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <icon src="res/icon/android/pearlhacks_logo.jpg" />
     <preference name="loglevel" value="DEBUG" />
 </widget>
