@@ -78,18 +78,6 @@
       }
     },
     methods: {
-      callError(message) {
-        alert('There was an error making the call. Error: ', message);
-      },
-      callSuccess(result) {
-        // do nothing
-      },
-      cameraError(message) {
-        alert('There was a problem taking a picture. Error: ', message);
-      },
-      cameraSuccess(imageData) {
-        // do nothing
-      },
       getLocation() {
         let options = {
           enableHighAccuracy: true,
@@ -101,48 +89,53 @@
         function onSuccess(position) {
           latitude = position.coords.latitude;
           longitude = position.coords.longitude;
-          nativegeocoder.reverseGeocode(success, failure, latitude, longitude, { useLocale: true, maxResults: 1 });
-         };
-      
-         function onError(error) {
-            alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-         }
- 
-         function success(result) {
-            //$scope.message = "getting address in fu";
-         let firstResult = result[0];
-         let address = JSON.stringify(firstResult);
-         let position = JSON.parse(address);
-        // this.postalCode = position.postalCode;
-            alert(  position.subThoroughfare + ' ' + position.thoroughfare + '\n' +
-        position.locality          + '\n' +
-        position.countryName      + ','  +  position.postalCode          + '\n' );
+          // Translate latitude and longitude
+          nativegeocoder.reverseGeocode(success, failure, latitude, longitude, {useLocale: true, maxResults: 1});
         }
-         
-         function failure(err) {
-         console.log(err);
-         }
-      },
-      loadErrorCallback(error) {
-        alert('Error loading page: ', error.message);
+        function onError(error) {
+          alert('code: ' + error.code + '\nmessage: ' + error.message);
+        }
+        function success(result) {
+          let address = JSON.stringify(result[0]);
+          let position = JSON.parse(address);
+          alert(position + '\n' + position.subThoroughfare + ' ' + position.thoroughfare + '\n' + position.locality + '\n' +
+              position.countryName  + ', '  +  position.postalCode+ '\n');
+        }
+        function failure(error) {
+          alert('There was an error translating your location. Error: ', error);
+        }
       },
       makeCall() {
+        function callError(message) {
+          alert('There was an error making the call. Error: ', message);
+        }
+        function callSuccess(result) {
+          // do nothing
+        }
         window.cordova.plugins.CordovaCall.callNumber(this.phoneNumber, this.callSuccess, this.callError);
       },
       openBrowser(url) {
         let target = '_blank';
         let options = 'location = yes';
         let ref = cordova.InAppBrowser.open(url, target, options);
+        function loadErrorCallback(error) {
+          alert('Error loading page: ', error.message);
+        }
         ref.addEventListener('loaderror', loaderrorCallback);
       },
       openCamera() {
-        navigator.camera.getPicture(this.cameraSuccess, this.cameraError, 
-          {
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            mediaType: Camera.MediaType.PICTURE
-          }
-        );
+        function cameraError(error) {
+          alert('There was a problem taking a picture. Error: ', error);
+        }
+        function cameraSuccess(result) {
+          // do nothing
+        }
+        let options = {
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          mediaType: Camera.MediaType.PICTURE
+        }
+        navigator.camera.getPicture(cameraSuccess, cameraError, options);
       },
       vibratePhone() {
         let time = 1000;
