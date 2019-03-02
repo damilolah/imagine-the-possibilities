@@ -1,7 +1,6 @@
-node_modules
-platforms
-plugins
-test/unit/coverage
-www
+node_modules/
+platforms/
+plugins/
+www/
 
 package-lock.json
